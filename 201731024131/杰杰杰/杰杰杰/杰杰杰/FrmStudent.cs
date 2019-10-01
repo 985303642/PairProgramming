@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using DaoLayer;
 using Entity;
@@ -17,6 +18,7 @@ namespace WindowsFormsApp
     public partial class FrmStudent : Form
     {
         List<Student> stuList;
+        string Mingdan;
         public FrmStudent()
         {
             InitializeComponent();
@@ -52,6 +54,8 @@ namespace WindowsFormsApp
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Mingdan = @"D:/缺课名单.txt";
+            File.WriteAllText(Mingdan, "");
             //获取学生数据源
             StudentDAO stuDao = new StudentDAO();
             stuList = stuDao.getAllStudents();
@@ -88,7 +92,12 @@ namespace WindowsFormsApp
 
         private void label2_Click(object sender, EventArgs e)
         {
-
+            DialogResult t = new DialogResult();
+            t = MessageBox.Show(string.Format("同学{0}是否缺课", label2.Text), "缺课提醒", MessageBoxButtons.YesNo);
+            if (t == DialogResult.Yes)
+            {
+                File.AppendAllText(Mingdan, string.Format("{0}\n", label2.Text.ToString()), Encoding.UTF8);
+            }
         }
     }
 }

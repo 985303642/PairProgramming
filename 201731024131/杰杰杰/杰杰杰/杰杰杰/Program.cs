@@ -14,9 +14,12 @@ namespace WindowsFormsApp
         [STAThread]
         static void Main()
         {
+            Deng deng = new Deng();
+            deng.ShowDialog();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmStudent());
+          
         }
     }
 }
